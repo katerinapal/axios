@@ -1,6 +1,8 @@
 var webpack = require('webpack');
 var config = {};
 
+export default config;
+
 function generateConfig(name) {
   var uglify = name.indexOf('min') > -1;
   var config = {
@@ -40,5 +42,3 @@ function generateConfig(name) {
 ['axios', 'axios.min'].forEach(function (key) {
   config[key] = generateConfig(key);
 });
-
-module.exports = config;

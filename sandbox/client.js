@@ -1,4 +1,4 @@
-var axios = require('../index');
+import axios from "../index";
 
 var URL = 'http://127.0.0.1:3000/api';
 var BODY = {

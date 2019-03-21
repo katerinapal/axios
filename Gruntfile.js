@@ -1,3 +1,4 @@
+import webpackconfigjs_moduleDefault from "./webpack.config.js";
 module.exports = function(grunt) {
   require('load-grunt-tasks')(grunt);
 
@@ -85,7 +86,7 @@ module.exports = function(grunt) {
       }
     },
 
-    webpack: require('./webpack.config.js')
+    webpack: webpackconfigjs_moduleDefault
   });
 
   grunt.registerMultiTask('package2bower', 'Sync package.json to bower.json', function () {
