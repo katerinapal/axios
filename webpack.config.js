@@ -1,7 +1,11 @@
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 var webpack = require('webpack');
 var config = {};
 
-export default config;
+exports.default = config;
+
 
 function generateConfig(name) {
   var uglify = name.indexOf('min') > -1;
@@ -20,20 +24,16 @@ function generateConfig(name) {
     devtool: 'source-map'
   };
 
-  config.plugins = [
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
-    })
-  ];
+  config.plugins = [new webpack.DefinePlugin({
+    'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+  })];
 
   if (uglify) {
-    config.plugins.push(
-      new webpack.optimize.UglifyJsPlugin({
-        compressor: {
-          warnings: false
-        }
-      })
-    );
+    config.plugins.push(new webpack.optimize.UglifyJsPlugin({
+      compressor: {
+        warnings: false
+      }
+    }));
   }
 
   return config;
@@ -42,3 +42,4 @@ function generateConfig(name) {
 ['axios', 'axios.min'].forEach(function (key) {
   config[key] = generateConfig(key);
 });
+module.exports = exports.default;

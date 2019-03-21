@@ -12,7 +12,7 @@ function createCustomLauncher(browser, version, platform) {
   };
 }
 
-module.exports = function(config) {
+module.exports = function (config) {
   var customLaunchers = {};
   var browsers = [];
 
@@ -20,16 +20,7 @@ module.exports = function(config) {
     customLaunchers = {};
 
     var runAll = true;
-    var options = [
-      'SAUCE_CHROME',
-      'SAUCE_FIREFOX',
-      'SAUCE_SAFARI',
-      'SAUCE_OPERA',
-      'SAUCE_IE',
-      'SAUCE_EDGE',
-      'SAUCE_IOS',
-      'SAUCE_ANDROID'
-    ];
+    var options = ['SAUCE_CHROME', 'SAUCE_FIREFOX', 'SAUCE_SAFARI', 'SAUCE_OPERA', 'SAUCE_IE', 'SAUCE_EDGE', 'SAUCE_IOS', 'SAUCE_ANDROID'];
 
     options.forEach(function (opt) {
       if (process.env[opt]) {
@@ -56,29 +47,17 @@ module.exports = function(config) {
       // customLaunchers.SL_Safari7 = createCustomLauncher('safari', 7);
       // customLaunchers.SL_Safari8 = createCustomLauncher('safari', 8);
 
-      customLaunchers.SL_Safari9 = createCustomLauncher(
-        "safari",
-        9.0,
-        "OS X 10.11"
-      );
-      customLaunchers.SL_Safari10 = createCustomLauncher(
-        "safari",
-        "10.1",
-        "macOS 10.12"
-      );
-      customLaunchers.SL_Safari11 = createCustomLauncher(
-        "safari",
-        "11.1",
-        "macOS 10.13"
-      );
+      customLaunchers.SL_Safari9 = createCustomLauncher("safari", 9.0, "OS X 10.11");
+      customLaunchers.SL_Safari10 = createCustomLauncher("safari", "10.1", "macOS 10.12");
+      customLaunchers.SL_Safari11 = createCustomLauncher("safari", "11.1", "macOS 10.13");
     }
 
     // Opera
-    if (runAll || process.env.SAUCE_OPERA) {
-      // TODO The available versions of Opera are too old and lack basic APIs
-      // customLaunchers.SL_Opera11 = createCustomLauncher('opera', 11, 'Windows XP');
-      // customLaunchers.SL_Opera12 = createCustomLauncher('opera', 12, 'Windows 7');
-    }
+    if (runAll || process.env.SAUCE_OPERA) {}
+    // TODO The available versions of Opera are too old and lack basic APIs
+    // customLaunchers.SL_Opera11 = createCustomLauncher('opera', 11, 'Windows XP');
+    // customLaunchers.SL_Opera12 = createCustomLauncher('opera', 12, 'Windows 7');
+
 
     // IE
     if (runAll || process.env.SAUCE_IE) {
@@ -91,13 +70,13 @@ module.exports = function(config) {
     }
 
     // IOS
-    if (runAll || process.env.SAUCE_IOS) {
-      // TODO IOS7 capture always timesout
-      // customLaunchers.SL_IOS7 = createCustomLauncher('iphone', '7.1', 'OS X 10.10');
-      // TODO Mobile browsers are causing failures, possibly from too many concurrent VMs
-      // customLaunchers.SL_IOS8 = createCustomLauncher('iphone', '8.4', 'OS X 10.10');
-      // customLaunchers.SL_IOS9 = createCustomLauncher('iphone', '9.2', 'OS X 10.10');
-    }
+    if (runAll || process.env.SAUCE_IOS) {}
+    // TODO IOS7 capture always timesout
+    // customLaunchers.SL_IOS7 = createCustomLauncher('iphone', '7.1', 'OS X 10.10');
+    // TODO Mobile browsers are causing failures, possibly from too many concurrent VMs
+    // customLaunchers.SL_IOS8 = createCustomLauncher('iphone', '8.4', 'OS X 10.10');
+    // customLaunchers.SL_IOS9 = createCustomLauncher('iphone', '9.2', 'OS X 10.10');
+
 
     // Android
     if (runAll || process.env.SAUCE_ANDROID) {
@@ -108,10 +87,7 @@ module.exports = function(config) {
 
     browsers = Object.keys(customLaunchers);
   } else if (process.env.TRAVIS_PULL_REQUEST && process.env.TRAVIS_PULL_REQUEST !== 'false') {
-    console.log(
-      'Cannot run on Sauce Labs as encrypted environment variables are not available to PRs. ' +
-      'Running on Travis.'
-    );
+    console.log('Cannot run on Sauce Labs as encrypted environment variables are not available to PRs. ' + 'Running on Travis.');
     browsers = ['Firefox'];
   } else {
     console.log('Running locally since SAUCE_USERNAME and SAUCE_ACCESS_KEY environment variables are not set.');
@@ -122,24 +98,15 @@ module.exports = function(config) {
     // base path that will be used to resolve all patterns (eg. files, exclude)
     basePath: '',
 
-
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
     frameworks: ['jasmine-ajax', 'jasmine', 'sinon'],
 
-
     // list of files / patterns to load in the browser
-    files: [
-      'test/specs/__helpers.js',
-      'test/specs/**/*.spec.js',
-    ],
-
+    files: ['test/specs/__helpers.js', 'test/specs/**/*.spec.js'],
 
     // list of files to exclude
-    exclude: [
-
-    ],
-
+    exclude: [],
 
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
@@ -148,7 +115,6 @@ module.exports = function(config) {
       'test/specs/**/*.spec.js': ['webpack', 'sourcemap']
     },
 
-
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
@@ -156,10 +122,8 @@ module.exports = function(config) {
     // reporters: ['dots', 'coverage', 'saucelabs'],
     reporters: ['dots', 'saucelabs'],
 
-
     // web server port
     port: 9876,
-
 
     // Increase timeouts to prevent the issue with disconnected tests (https://goo.gl/nstA69)
     captureTimeout: 4 * 60 * 1000,
@@ -167,24 +131,19 @@ module.exports = function(config) {
     browserDisconnectTolerance: 1,
     browserNoActivityTimeout: 4 * 60 * 1000,
 
-
     // enable / disable colors in the output (reporters and logs)
     colors: true,
-
 
     // level of logging
     // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
     logLevel: config.LOG_INFO,
 
-
     // enable / disable watching file and executing tests whenever any file changes
     autoWatch: false,
-
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
     browsers: browsers,
-
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
@@ -204,16 +163,12 @@ module.exports = function(config) {
       //     }
       //   ]
       // },
-      externals: [
-        {
-          './adapters/http': 'var undefined'
-        }
-      ],
-      plugins: [
-        new webpack.DefinePlugin({
-          'process.env.NODE_ENV': JSON.stringify('test')
-        })
-      ]
+      externals: [{
+        './adapters/http': 'var undefined'
+      }],
+      plugins: [new webpack.DefinePlugin({
+        'process.env.NODE_ENV': JSON.stringify('test')
+      })]
     },
 
     webpackServer: {
@@ -222,14 +177,12 @@ module.exports = function(config) {
       }
     },
 
-
     // Coverage reporting
     coverageReporter: {
       type: 'lcov',
       dir: 'coverage/',
       subdir: '.'
     },
-
 
     // SauceLabs config
     sauceLabs: {

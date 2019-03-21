@@ -10,7 +10,7 @@ function listDirs(root) {
   var files = fs.readdirSync(root);
   var dirs = [];
 
-  for (var i=0, l=files.length; i<l; i++) {
+  for (var i = 0, l = files.length; i < l; i++) {
     var file = files[i];
     if (file[0] !== '.') {
       var stat = fs.statSync(path.join(root, file));
@@ -29,23 +29,7 @@ function getIndexTemplate() {
     return '<li onclick="document.location=\'' + url + '\'"><a href="' + url + '">' + url + '</a></li>';
   });
 
-  return (
-    '<!doctype html>' +
-    '<html>' +
-    '<head>' +
-    '<title>axios examples</title>' +
-    '<style>' +
-    'body {padding:25px;}' +
-    'ul {margin:0; padding:0; list-style:none;}' +
-    'li {padding:5px 10px;}' +
-    'li:hover {background:#eee; cursor:pointer;}' +
-    'a {text-decoration:none; color:#0080ff;}' +
-    '</style>' +
-    '<body>' +
-    '<ul>' +
-    links.join('') +
-    '</ul>'
-  );
+  return '<!doctype html>' + '<html>' + '<head>' + '<title>axios examples</title>' + '<style>' + 'body {padding:25px;}' + 'ul {margin:0; padding:0; list-style:none;}' + 'li {padding:5px 10px;}' + 'li:hover {background:#eee; cursor:pointer;}' + 'a {text-decoration:none; color:#0080ff;}' + '</style>' + '<body>' + '<ul>' + links.join('') + '</ul>';
 }
 
 function sendResponse(res, statusCode, body) {
@@ -70,7 +54,6 @@ function pipeFileToResponse(res, file, type) {
   }
   fs.createReadStream(path.join(__dirname, file)).pipe(res);
 }
-
 
 dirs = listDirs(__dirname);
 
@@ -105,7 +88,7 @@ server = http.createServer(function (req, res) {
   if (/\/$/.test(url)) {
     url += 'index.html';
   }
-  
+
   // Format request /get -> /get/index.html
   var parts = url.split('/');
   if (dirs.indexOf(parts[parts.length - 1]) > -1) {
@@ -123,15 +106,14 @@ server = http.createServer(function (req, res) {
 
   // Process server request
   else if (new RegExp('(' + dirs.join('|') + ')\/server').test(url)) {
-    if (fs.existsSync(path.join(__dirname, url + '.js'))) {
-      require(path.join(__dirname, url + '.js'))(req, res);
+      if (fs.existsSync(path.join(__dirname, url + '.js'))) {
+        require(path.join(__dirname, url + '.js'))(req, res);
+      } else {
+        send404(res);
+      }
     } else {
       send404(res);
     }
-  }
-  else {
-    send404(res);
-  }
 });
 
 server.listen(argv.p || 3000);

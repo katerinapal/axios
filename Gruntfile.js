@@ -1,5 +1,10 @@
-import webpackconfigjs_moduleDefault from "./webpack.config.js";
-module.exports = function(grunt) {
+var _webpackConfig = require('./webpack.config.js');
+
+var _webpackConfig2 = _interopRequireDefault(_webpackConfig);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+module.exports = function (grunt) {
   require('load-grunt-tasks')(grunt);
 
   grunt.initConfig({
@@ -15,11 +20,7 @@ module.exports = function(grunt) {
     ts: {
       test: {
         options: {
-          lib: [
-            'es5',
-            'es2015.promise',
-            'dom'
-          ]
+          lib: ['es5', 'es2015.promise', 'dom']
         },
         src: ['typings/index.d.ts', 'test/typescript/*.ts']
       }
@@ -27,14 +28,7 @@ module.exports = function(grunt) {
 
     package2bower: {
       all: {
-        fields: [
-          'name',
-          'description',
-          'version',
-          'homepage',
-          'license',
-          'keywords'
-        ]
+        fields: ['name', 'description', 'version', 'homepage', 'license', 'keywords']
       }
     },
 
@@ -71,8 +65,8 @@ module.exports = function(grunt) {
         src: ['test/unit/**/*.js']
       },
       options: {
-        timeout: 30000,
-      },
+        timeout: 30000
+      }
     },
 
     watch: {
@@ -86,7 +80,7 @@ module.exports = function(grunt) {
       }
     },
 
-    webpack: webpackconfigjs_moduleDefault
+    webpack: _webpackConfig2.default
   });
 
   grunt.registerMultiTask('package2bower', 'Sync package.json to bower.json', function () {
@@ -94,7 +88,7 @@ module.exports = function(grunt) {
     var bower = grunt.file.readJSON('bower.json');
     var fields = this.data.fields || [];
 
-    for (var i=0, l=fields.length; i<l; i++) {
+    for (var i = 0, l = fields.length; i < l; i++) {
       var field = fields[i];
       bower[field] = npm[field];
     }
